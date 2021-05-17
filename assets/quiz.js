@@ -1,4 +1,17 @@
-var qQuestions = [
+// Declaring variables
+let timerEl = document.querySelector("#timer");
+let startEl = addeventlistener("#startQuiz");
+let questionsEl = document.querySelector("#questions");
+
+let remainingTime = 80;
+let holdInterval = 0;
+let penalty = 10;
+let ulCreate = document.createElement("ul");
+
+let score = 0;
+let questionIndex = 0;
+
+let quizQuestions = [
   {
     Question: "Arrays in JavaScript can be used to store:",
     answers: ['Numbers and Strings', 'Other Arrays', 'Booleans', 'All of the above'],
@@ -24,6 +37,120 @@ var qQuestions = [
     answers: ['JavaScript', 'Terminal/Bash', 'For loops', 'Console.log'],
     CorrectAnswer: 'Console.log'
   },   
-]
+];
 
-let score = '0'
+startEl.addEventListener("click", function(){
+  if (holdInterval === 0) {
+    holdInterval = createInterval(function(){
+      timerEl--;
+      timerEl.textContent = (timerEl);
+      if (timer <=0) {
+        clearInterval(holdInterval);
+        complete();
+        timerEl.textContent = `Time's up!`
+      }
+    }, 1000);
+  }
+  render(questionIndex);
+})
+
+function render(questionIndex) {
+  ulCreate.innerHTML = "";
+  questionsEl.innerHTML = "";
+  for (var i = 0; i < questionIndex.length; i++) {
+    let userQ = quizQuestions[questionIndex].Question;
+    let userChoice = quizQuestions[questionIndex].answers;
+    questionsEl.textContent = userChoice;
+  };
+  userChoice.forEach(function (newList) {
+    let listItem= $('<li>');
+    listItem.textContent = newList;
+    questionsEl.appendChild(ulCreate);
+    ulCreate.appendChild(listItem);
+    listItem.addeventlistener("click",(compare));
+  });
+}
+
+function compare(event) {
+  let element = event.target;
+  if (element.matches("li")) {
+    let createDiv = document.$('<div>');
+    createDiv.setAttribure("id", "createDiv");
+    if (element.textContent == quizQuestions[questionIndex].CorrectAnswer) {
+      score++;
+      createDiv.text('Your choice is correct!')
+    } else {
+      remainingTime = remainingTime - penalty;
+      createDiv.textContent = "Wrong, the correct answer is" + quizQuestions[questionIndex].CorrectAnswer;
+    }
+  }
+  questionIndex++;
+  if (questionIndex >= quizQuestions.length) {
+    complete();
+    createDiv.text(`All done! You scored ` ${score} `out of 5`);
+  } else {
+    render(questionIndex);
+  }
+  questionsEl.appendChild(createDiv);
+}
+
+function complete() {
+  questionsEl.innerHTML = "";
+  timer.innerHTML = "";
+// create a header
+  let createh1 = $('<h1')
+  createh1.setAttribure("id", "createh1");
+  createh1.text("You're finished!")
+  questionsEl.appendChild(createh1);
+// create a paragraph
+  let createP = $('<p>');
+  createP.setAttribure("id", "createP");
+  questionsEl.appendChild(createP);
+// if statement for when the timer runs out
+  if (timer >=0) {
+    let remainingTime = timer;
+    let createP2 = $('<p');
+    clearInterval(holdInterval);
+  createP.text(`Your final score is `${remainingTime});
+  questionsEl.appendChild(createP2);
+  }
+// creates a label
+let createLabel = document.createElement("label");
+createLabel.setAttribute("id","createLabel");
+createLabel.text("Enter your initials:");
+questionsEl.appendChild(createLabel);
+// creates an input 
+let createInput = document.createElement("input");
+createInput.setAttribure("id", "text");
+createInput.setAttribure("id","initials");
+questionsEl.appendChild(createInput);
+// creates a submit button
+let createSubmit = document.createElement("button");
+    createSubmit.setAttribute("type", "submit");
+    createSubmit.setAttribute("id", "Submit");
+    createSubmit.textContent = "Submit";
+    questionsEl.appendChild(createSubmit);
+// submits initials and score on click for the Highscores
+    createSubmit.addEventListener("click", function () {
+      let initials = createInput.value;
+      if (initials === null) {
+          console.log("no information recorded");
+      } else {
+          var complete = {
+              initials: initials,
+              score: remainingTime
+          }
+          console.log(complete);
+          let highScores = localStorage.getItem("highScores");
+          if (highScores === null) {
+            highScores == [];
+          } else {
+            highScores = JSON.parse(highScores);
+          }
+          complete.push(complete);
+          let newScore = JSON.stringify(complete);
+          localStorage.setItem("complete", newScore);
+          window.location.replace("./results.html")
+      }
+    )};
+}
