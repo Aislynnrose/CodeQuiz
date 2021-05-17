@@ -1,7 +1,7 @@
 // Declaring variables
 let timerEl = document.querySelector("#timer");
 let startEl = document.querySelector("#startQuiz");
-let questionsEl = document.querySelector("#questions");
+let questionsEl = document.querySelector("#Questions");
 
 let remainingTime = 80;
 let holdInterval = 0;
@@ -55,11 +55,11 @@ startEl.addEventListener("click", function(){
 })
 
 function render(questionIndex) {
-  ulCreate.innerHTML = "";
-  questionsEl.innerHTML = "";
-  for (var i = 0; i < questionIndex.length; i++) {
+  questionsEl.innerHTML = "Select One";
+  ulCreate.innerHTML = "Select One";
+  for (var i = 0; i < quizQuestions.length; i++) {
     let userQ = quizQuestions[questionIndex].Question;
-    let userChoice = quizQuestions[questionIndex].answers;
+    var userChoice = quizQuestions[questionIndex].answers;
     questionsEl.textContent = userChoice;
   };
   userChoice.forEach(function (newList) {
@@ -67,7 +67,7 @@ function render(questionIndex) {
     listItem.textContent = newList;
     questionsEl.appendChild(ulCreate);
     ulCreate.appendChild(listItem);
-    listItem.addeventlistener("click",(compare));
+    listItem.addEventListener("click",(compare));
   });
 }
 
