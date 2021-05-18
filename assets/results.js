@@ -1,5 +1,5 @@
 // declaring variables
-let score = document.querySelector("#HighScores");
+let results = document.querySelector("#Highscores");
 let clear = document.querySelector("#clear");
 
 // Event listener to clear scores 
@@ -8,16 +8,14 @@ clear.addEventListener("click", function () {
     location.reload();
 });
 // Retreives local stroage 
-let complete = localStorage.getItem("complete");
-complete = JSON.parse(complete);
+let highScores = localStorage.getItem("highScores");
+highScores = JSON.parse(highScores);
 
-if (complete !== null) {
+if (highScores !== null) {
 
-    for (var i = 0; i < complete.length; i++) {
-
+    for (var i = 0; i < highScores.length; i++) {
         let createLi = document.createElement("li");
-        createLi.textContent = complete[i].initials + " " + complete[i].score;
-        score.appendChild(createLi);
-
+        createLi.textContent = highScores[i].initials + " " + highScores[i].score;
+        results.appendChild(createLi);
     }
 }

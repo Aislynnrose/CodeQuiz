@@ -143,10 +143,18 @@ let createSubmit = document.createElement("button");
               initials: initials,
               score: remainingTime,
           }
+
           console.log(complete);
-          let highScores = JSON.parse(localStorage.getItem("highScores")) || [];
-          // highScores.push(complete);
-          localStorage.setItem("complete", JSON.stringify(complete));
+          var highScores = localStorage.getItem("highScores");
+          if (highScores === null) {
+              highScores = [];
+          } else {
+              highScores = JSON.parse(highScores);
+          }
+          highScores.push(complete);
+          var newScore = JSON.stringify(highScores);
+          localStorage.setItem("highScores", newScore);
+          // Goes to final page
           window.location.replace(href = "./results.html")
       }
     });
