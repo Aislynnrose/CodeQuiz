@@ -73,10 +73,10 @@ function render(questionIndex) {
   });
 }
 
+let createDiv = document.createElement("div");
 function compare(event) {
   let element = event.target;
   if (element.matches("li")) {
-    let createDiv = document.createElement("div");
     createDiv.setAttribute("id", "createDiv");
     if (element.textContent == quizQuestions[questionIndex].CorrectAnswer) {
       score++;
@@ -89,7 +89,7 @@ function compare(event) {
   questionIndex++;
   if (questionIndex >= quizQuestions.length) {
     complete();
-    createDiv.textContent = `All done! You scored ` + score `out of 5`;
+    // createDiv.textContent = `All done! You scored ` + score `out of 5`;
   } else {
     render(questionIndex);
   }
@@ -111,7 +111,7 @@ function complete() {
 // if statement for when the timer runs out
   if (remainingTime >=0) {
     let timeRemaining = remainingTime;
-    let createP2 = $('<p');
+    let createP2 = document.createElement("p")
     clearInterval(holdInterval);
   createP.textContent = `Your final score is ` + timeRemaining;
   questionsEl.appendChild(createP2);
@@ -141,18 +141,12 @@ let createSubmit = document.createElement("button");
       } else {
           var complete = {
               initials: initials,
-              score: timeRemaining
+              score: remainingTime,
           }
           console.log(complete);
-          let highScores = localStorage.getItem("highScores");
-          if (highScores === null) {
-            highScores == [];
-          } else {
-            highScores = JSON.parse(highScores);
-          }
-          complete.push(complete);
-          let newScore = JSON.stringify(complete);
-          localStorage.setItem("complete", newScore);
+          let highScores = JSON.parse(localStorage.getItem("highScores")) || [];
+          // highScores.push(complete);
+          localStorage.setItem("complete", JSON.stringify(complete));
           window.location.replace(href = "./results.html")
       }
     });

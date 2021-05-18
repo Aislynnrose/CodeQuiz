@@ -1,7 +1,6 @@
 // declaring variables
-let score = document.querySelector("#highScores");
+let score = document.querySelector("#HighScores");
 let clear = document.querySelector("#clear");
-let back = document.querySelector("#Return");
 
 // Event listener to clear scores 
 clear.addEventListener("click", function () {
@@ -9,20 +8,16 @@ clear.addEventListener("click", function () {
     location.reload();
 });
 // Retreives local stroage 
-let highScores = localStorage.getItem("highScores");
-highScores = JSON.parse(highScores);
+let complete = localStorage.getItem("complete");
+complete = JSON.parse(complete);
 
-if (highScores !== null) {
+if (complete !== null) {
 
-    for (var i = 0; i < highScores.length; i++) {
+    for (var i = 0; i < complete.length; i++) {
 
         let createLi = document.createElement("li");
-        createLi.textContent = highScores[i].initials + " " + highScores[i].score;
+        createLi.textContent = complete[i].initials + " " + complete[i].score;
         score.appendChild(createLi);
 
     }
 }
-// Event listener to move to index page
-back.addEventListener("click", function () {
-    window.location.replace(src = "../quiz.html");
-});
