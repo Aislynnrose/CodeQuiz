@@ -6,7 +6,7 @@ let questionsEl = document.querySelector("#Questions");
 let remainingTime = 80;
 let holdInterval = 0;
 let penalty = 10;
-let ulCreate = document.createAttribute("ul");
+let ulCreate = document.createElement("ul");
 
 let score = 0;
 let questionIndex = 0;
@@ -76,7 +76,7 @@ function render(questionIndex) {
 function compare(event) {
   let element = event.target;
   if (element.matches("li")) {
-    let createDiv = document.createAttribute("div");
+    let createDiv = document.createElement("div");
     createDiv.setAttribure("id", "createDiv");
     if (element.textContent == quizQuestions[questionIndex].CorrectAnswer) {
       score++;
@@ -100,12 +100,12 @@ function complete() {
   questionsEl.innerHTML = "";
   timer.innerHTML = "";
 // create a header
-  let createh1 = document.createAttribute('h1');
+  let createh1 = document.createElement('h1');
   createh1.setAttribure("id", "createh1");
   createh1.textContent = "You're finished!"
   questionsEl.appendChild(createh1);
 // create a paragraph
-  let createP = $('<p>');
+  let createP = document.createElement("p")
   createP.setAttribure("id", "createP");
   questionsEl.appendChild(createP);
 // if statement for when the timer runs out
@@ -117,7 +117,7 @@ function complete() {
   questionsEl.appendChild(createP2);
   }
 // creates a label
-let createLabel = document.createAttribute("label");
+let createLabel = document.createElement("label");
 createLabel.setAttribute("id","createLabel");
 createLabel.textContent = "Enter your initials:";
 questionsEl.appendChild(createLabel);
@@ -128,7 +128,7 @@ createInput.setAttribure("id","initials");
 createInput.textContent = "";
 questionsEl.appendChild(createInput);
 // creates a submit button
-let createSubmit = document.createAttribute("button");
+let createSubmit = document.createElement("button");
     createSubmit.setAttribute("type", "submit");
     createSubmit.setAttribute("id", "Submit");
     createSubmit.textContent = "Submit";
