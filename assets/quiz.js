@@ -6,10 +6,11 @@ let questionsEl = document.querySelector("#Questions");
 let remainingTime = 80;
 let holdInterval = 0;
 let penalty = 10;
-let ulCreate = document.createElement("ul");
+let ulCreate = document.createAttribute("ul");
 
 let score = 0;
 let questionIndex = 0;
+
 
 let quizQuestions = [
   {
@@ -57,13 +58,14 @@ startEl.addEventListener("click", function(){
 function render(questionIndex) {
   questionsEl.innerHTML = "Select One";
   ulCreate.innerHTML = "Select One";
+  let userChoice = quizQuestions[questionIndex].answers;
   for (var i = 0; i < quizQuestions.length; i++) {
     let userQ = quizQuestions[questionIndex].Question;
-    var userChoice = quizQuestions[questionIndex].answers;
-    questionsEl.textContent = userChoice;
+    // let userChoice = quizQuestions[questionIndex].answers;
+    questionsEl.textContent = userQ;
   };
   userChoice.forEach(function (newList) {
-    let listItem= document.createElement("li")
+    let listItem= document.createElement("li");
     listItem.textContent = newList;
     questionsEl.appendChild(ulCreate);
     ulCreate.appendChild(listItem);
@@ -74,7 +76,7 @@ function render(questionIndex) {
 function compare(event) {
   let element = event.target;
   if (element.matches("li")) {
-    let createDiv = document.createElement("div");
+    let createDiv = document.createAttribute("div");
     createDiv.setAttribure("id", "createDiv");
     if (element.textContent == quizQuestions[questionIndex].CorrectAnswer) {
       score++;
@@ -98,7 +100,7 @@ function complete() {
   questionsEl.innerHTML = "";
   timer.innerHTML = "";
 // create a header
-  let createh1 = document.createElement('h1');
+  let createh1 = document.createAttribute('h1');
   createh1.setAttribure("id", "createh1");
   createh1.textContent = "You're finished!"
   questionsEl.appendChild(createh1);
@@ -107,15 +109,15 @@ function complete() {
   createP.setAttribure("id", "createP");
   questionsEl.appendChild(createP);
 // if statement for when the timer runs out
-  if (timer >=0) {
-    let remainingTime = timer;
+  if (remainingTime >=0) {
+    let timeRemaining = remainingTime;
     let createP2 = $('<p');
     clearInterval(holdInterval);
-  createP.textContent = `Your final score is ` + remainingTime;
+  createP.textContent = `Your final score is ` + timeRemaining;
   questionsEl.appendChild(createP2);
   }
 // creates a label
-let createLabel = document.createElement("label");
+let createLabel = document.createAttribute("label");
 createLabel.setAttribute("id","createLabel");
 createLabel.textContent = "Enter your initials:";
 questionsEl.appendChild(createLabel);
@@ -126,7 +128,7 @@ createInput.setAttribure("id","initials");
 createInput.textContent = "";
 questionsEl.appendChild(createInput);
 // creates a submit button
-let createSubmit = document.createElement("button");
+let createSubmit = document.createAttribute("button");
     createSubmit.setAttribute("type", "submit");
     createSubmit.setAttribute("id", "Submit");
     createSubmit.textContent = "Submit";
@@ -139,7 +141,7 @@ let createSubmit = document.createElement("button");
       } else {
           var complete = {
               initials: initials,
-              score: remainingTime
+              score: timeRemaining
           }
           console.log(complete);
           let highScores = localStorage.getItem("highScores");
