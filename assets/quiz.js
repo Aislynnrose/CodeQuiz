@@ -77,7 +77,7 @@ function compare(event) {
   let element = event.target;
   if (element.matches("li")) {
     let createDiv = document.createElement("div");
-    createDiv.setAttribure("id", "createDiv");
+    createDiv.setAttribute("id", "createDiv");
     if (element.textContent == quizQuestions[questionIndex].CorrectAnswer) {
       score++;
       createDiv.textContent = 'Your choice is correct!';
@@ -101,12 +101,12 @@ function complete() {
   timer.innerHTML = "";
 // create a header
   let createh1 = document.createElement('h1');
-  createh1.setAttribure("id", "createh1");
+  createh1.setAttribute("id", "createh1");
   createh1.textContent = "You're finished!"
   questionsEl.appendChild(createh1);
 // create a paragraph
   let createP = document.createElement("p")
-  createP.setAttribure("id", "createP");
+  createP.setAttribute("id", "createP");
   questionsEl.appendChild(createP);
 // if statement for when the timer runs out
   if (remainingTime >=0) {
@@ -123,8 +123,8 @@ createLabel.textContent = "Enter your initials:";
 questionsEl.appendChild(createLabel);
 // creates an input 
 let createInput = document.createElement("input");
-createInput.setAttribure("id", "text");
-createInput.setAttribure("id","initials");
+createInput.setAttribute("id", "text");
+createInput.setAttribute("id","initials");
 createInput.textContent = "";
 questionsEl.appendChild(createInput);
 // creates a submit button
